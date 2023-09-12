@@ -40,4 +40,4 @@ Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
 update-desktop-database
 
 # Optional: Create a symlink on the Desktop
-# ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
+ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
