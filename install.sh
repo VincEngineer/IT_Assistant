@@ -8,16 +8,18 @@ sudo apt-get install -y dbus-x11
 sudo apt-get install -y terminator
 sudo apt-get install -y sshpass
 sudo apt-get install -y python3-pip git
+
+exit
 # Python dependencies
 pip install --upgrade pip
 pip install colorama
 pip install PyQt6
 pip install configparser
 pip install requests
-
+sudo su
 
 # Get the current username
-# CURRENT_USER=$(whoami)
+CURRENT_USER=$(whoami)
 
 # Get the current directory
 CURRENT_DIR=$(pwd)
