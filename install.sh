@@ -15,11 +15,9 @@ pip install PyQt6
 pip install configparser
 pip install requests
 
-# Navigate into the directory and install
-cd IT_Assistant
 
 # Get the current username
-CURRENT_USER=$(whoami)
+# CURRENT_USER=$(whoami)
 
 # Get the current directory
 CURRENT_DIR=$(pwd)
@@ -42,4 +40,4 @@ Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
 update-desktop-database
 
 # Optional: Create a symlink on the Desktop
-ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
+# ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
