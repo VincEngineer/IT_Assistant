@@ -21,20 +21,23 @@ pip install requests
 # Navigate into the directory and install
 cd IT_Assistant
 
-# Get the full path of the current directory
-script_dir=$(pwd)
+# Get the current username
+CURRENT_USER=$(whoami)
 
+# Get the current directory
+CURRENT_DIR=$(pwd)
 
 # Make the script executable
 chmod +x Main.py
 
-# Install as a systemd service
+# Create a systemd service
 echo "[Unit]
 Description=IT_Assistant
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 $script_dir/Main.py
+ExecStart=/usr/bin/python3 $CURRENT_DIR/Main.py
+User=$CURRENT_USER
 Restart=always
 
 [Install]
