@@ -15,9 +15,6 @@ pip install PyQt6
 pip install configparser
 pip install requests
 
-# Clone repository
-# git clone https://github.com/your-username/your-repo.git
-
 # Navigate into the directory and install
 cd IT_Assistant
 
@@ -30,20 +27,19 @@ CURRENT_DIR=$(pwd)
 # Make the script executable
 chmod +x Main.py
 
-# Create a systemd service
-echo "[Unit]
-Description=IT_Assistant
-After=network.target
+# Create the .desktop file
+echo "[Desktop Entry]
+Version=1.0
+Name=IT Assistant
+Comment=Your IT Assistant
+Exec=/usr/bin/python3 ${CURRENT_DIR}/Main.py
+Icon=${CURRENT_DIR}/Kali_Linux_Red.ico
+Terminal=false
+Type=Application
+Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
 
-[Service]
-ExecStart=/usr/bin/python3 $CURRENT_DIR/Main.py
-User=$CURRENT_USER
-Restart=always
+# Update desktop database
+update-desktop-database
 
-[Install]
-WantedBy=multi-user.target" | sudo tee /etc/systemd/system/IT_Assistant.service
-
-# Reload systemd, enable and start the service
-sudo systemctl daemon-reload
-sudo systemctl enable IT_Assistant.service
-sudo systemctl start IT_Assistant.service
+# Optional: Create a symlink on the Desktop
+ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
