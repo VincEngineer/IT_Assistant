@@ -1,4 +1,4 @@
-# Task-Automation
+# IT_Assistant
 This sofware is used to run Scripts with 1 click in linux. and will be added to the systemctl, so you only need to enable it and start it.
 
 
