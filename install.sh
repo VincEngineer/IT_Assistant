@@ -12,8 +12,7 @@ sudo apt-get install -y python3-pip git
 
 sudo su
 
-# Get the current username
-CURRENT_USER=$(whoami)
+
 
 # Get the current directory
 CURRENT_DIR=$(pwd)
@@ -35,10 +34,13 @@ Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
 # Update desktop database
 update-desktop-database
 
+exit
+# Get the current username
+CURRENT_USER=$(whoami)
 # Optional: Create a symlink on the Desktop
 ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
 
-exit
+
 # Python dependencies
 pip install --upgrade pip
 pip install colorama
