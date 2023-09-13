@@ -9,15 +9,6 @@ sudo apt-get install -y terminator
 sudo apt-get install -y sshpass
 sudo apt-get install -y python3-pip git
 
-exit
-# Python dependencies
-pip install --upgrade pip
-pip install colorama
-pip install PyQt6
-pip install configparser
-pip install requests
-sudo su
-
 # Get the current username
 CURRENT_USER=$(whoami)
 
@@ -36,10 +27,17 @@ Exec=/usr/bin/python3 ${CURRENT_DIR}/Main.py
 Icon=${CURRENT_DIR}/Kali_Linux_Red.ico
 Terminal=false
 Type=Application
-Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
+Categories=Utility;" | sudo tee "/usr/share/applications/IT_Assistant.desktop"
 
 # Update desktop database
-update-desktop-database
+sudo update-desktop-database
 
 # Optional: Create a symlink on the Desktop
 ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
+
+# Python dependencies
+pip install --user --upgrade pip
+pip install --user colorama
+pip install --user PyQt6
+pip install --user configparser
+pip install --user requests
