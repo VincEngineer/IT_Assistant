@@ -81,3 +81,11 @@ else
     print_red "Failed to create symlink."
     exit 1
 fi
+
+exit
+# Python dependencies
+pip install --user --upgrade pip
+pip install --user colorama
+pip install --user PyQt6
+pip install --user configparser
+pip install --user requests
