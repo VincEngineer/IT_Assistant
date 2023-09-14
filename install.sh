@@ -71,7 +71,7 @@ else
     print_red "Desktop directory does not exist."
     exit 1
 fi
-
+'''
 # Create the symlink
 ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
 
@@ -81,3 +81,4 @@ else
     print_red "Failed to create symlink."
     exit 1
 fi
+'''
