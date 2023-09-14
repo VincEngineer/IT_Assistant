@@ -33,15 +33,16 @@ CURRENT_DIR=$(pwd)
 chmod +x Main.py
 
 # Create the .desktop file
-echo "[Desktop Entry]
+[Desktop Entry]
 Version=1.0
 Name=IT Assistant
 Comment=Your IT Assistant
-Exec=/usr/bin/python3 ${CURRENT_DIR}/Main.py
+Exec=/usr/bin/python3 -c "import os; os.chdir(os.path.dirname(os.path.realpath(__file__))); import Main; Main.main()"
 Icon=${CURRENT_DIR}/Kali_Linux_Red.ico
 Terminal=false
 Type=Application
-Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
+Categories=Utility;
+
 
 # Update desktop database
 update-desktop-database
