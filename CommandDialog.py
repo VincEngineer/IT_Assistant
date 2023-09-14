@@ -104,6 +104,8 @@ class CommandInputDialog(QDialog):
     def get_config_file_path():
         # Get the directory where the main script is located
         script_dir = os.path.dirname(os.path.realpath(__file__))
+        if not script_dir.endswith('/'):
+            script_dir += '/'
         # Return the full path to the config.ini file within the installation directory
         print(script_dir)
         return os.path.join(script_dir, "config.ini")
