@@ -1,6 +1,6 @@
 import subprocess
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QFileDialog, QLineEdit, QDialog, QLabel
-from PyQt6.QtCore import pyqtSlot
+from PyQt6.QtCore import pyqtSlot, QStandardPaths
 import configparser
 import os  # Import for getting the file extension
 
@@ -64,7 +64,6 @@ class CommandInputDialog(QDialog):
     Suggest_command_based_on_file will add a command base on the file you search with 'search_file' method.
     Example: If you select a .py file, this will suggest a python3 command like 'python3 /path/to/file/script.py'
     '''
-
     def suggest_command_based_on_file(self, file_path):
         file_extension = os.path.splitext(file_path)[1]
         if file_extension == '.ovpn':
@@ -101,12 +100,24 @@ class CommandInputDialog(QDialog):
         command_or_path = self.command_input.text()
         if command_or_path:
             self.save_to_config_ini(command_or_path)
+    @staticmethod
+    def get_config_file_path():
+        # Get the user's config directory
+        config_dir = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppConfigLocation)
+        # Ensure the directory exists
+        os.makedirs(config_dir, exist_ok=True)
+        # Return the full path to the config.ini file
+        return os.path.join(config_dir, "config.ini")
 
+    '''
+    This method will create the config.ini file.
+    '''
     def save_to_config_ini(self, value):
+        config_file_path = self.get_config_file_path()
         config = configparser.ConfigParser()
         config.read("config.ini")
         if "File_Paths" not in config.sections():
             config.add_section("File_Paths")
         config.set("File_Paths", self.button_identifier, value)
-        with open("config.ini", "w") as config_file:
+        with open(config_file_path, "w") as config_file:
             config.write(config_file)
