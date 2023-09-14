@@ -102,12 +102,11 @@ class CommandInputDialog(QDialog):
             self.save_to_config_ini(command_or_path)
     @staticmethod
     def get_config_file_path():
-        # Get the user's config directory
-        config_dir = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppConfigLocation)
-        # Ensure the directory exists
-        os.makedirs(config_dir, exist_ok=True)
-        # Return the full path to the config.ini file
-        return os.path.join(config_dir, "config.ini")
+        # Get the directory where the main script is located
+        script_dir = os.path.dirname(os.path.realpath(__file__))
+        # Return the full path to the config.ini file within the installation directory
+        print(script_dir)
+        return os.path.join(script_dir, "config.ini")
 
     '''
     This method will create the config.ini file.
