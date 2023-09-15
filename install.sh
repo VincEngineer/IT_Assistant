@@ -12,19 +12,21 @@ print_red() {
 
 # Check if the script is running as root
 if [ "$EUID" -ne 0 ]; then
-    print_red "Please run as root"
+    print_red "Please run as root. If you dont have sudo rights, run directly this from the Main.py"
     exit 1
 else
-    print_green "Running as root"
+    print_green "Running as root. If you dont have sudo rights, run directly this from the Main.py"
 fi
+# Get the current username (not effective username because of sudo)
+CURRENT_USER=$(who am i | awk '{print $1}')
+print_green"${CURRENT_USER}"
 
 # Update package list and install dependencies
 apt-get update -y
 apt-get install -y '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev
 apt-get install -y dbus-x11 terminator sshpass python3-pip git
 
-# Get the current username (not effective username because of sudo)
-CURRENT_USER=$(who am i | awk '{print $1}')
+
 
 # Get the current directory
 CURRENT_DIR=$(pwd)
@@ -33,16 +35,15 @@ CURRENT_DIR=$(pwd)
 chmod +x Main.py
 
 # Create the .desktop file
-[Desktop Entry]
+echo "[Desktop Entry]
 Version=1.0
 Name=IT Assistant
 Comment=Your IT Assistant
-Exec=/usr/bin/python3 -c "import os; os.chdir(os.path.dirname(os.path.realpath(__file__))); import Main; Main.main()"
+Exec=/usr/bin/python3 ${CURRENT_DIR}/Main.py
 Icon=${CURRENT_DIR}/Kali_Linux_Red.ico
 Terminal=false
 Type=Application
-Categories=Utility;
-
+Categories=Utility;" > "/usr/share/applications/IT_Assistant.desktop"
 
 # Update desktop database
 update-desktop-database
@@ -72,7 +73,7 @@ else
     print_red "Desktop directory does not exist."
     exit 1
 fi
-'''
+
 # Create the symlink
 ln -s "/usr/share/applications/IT_Assistant.desktop" "/home/${CURRENT_USER}/Desktop/IT_Assistant.desktop"
 
@@ -82,4 +83,3 @@ else
     print_red "Failed to create symlink."
     exit 1
 fi
-'''

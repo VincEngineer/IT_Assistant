@@ -110,7 +110,7 @@ def open_terminal_and_run_command(button_identifier):
     try:
         command = CommandInputDialog.read_command_from_config(button_identifier)
         # "X-terminal-emulator" will be used to grab the terminal you have by default,
-        # if is not working, set terminator by defauls or change this command.
+        # if it is not working, set terminator by defauls or change this command.
         subprocess.Popen(["x-terminal-emulator", "--command", f"bash -c '{command}; exec bash'"], shell=False)
     except Exception as e:
         print(f"An error occurred: {e}")
