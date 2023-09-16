@@ -9,37 +9,3 @@ pip install PyQt6
 pip install configparser
 pip install requests
 pip install -r requirements.txt
-
-
-
-
-In the ConfigurationPanel, I would like to add fields that allow the user to add information and this information will be saved into a config file.
-
-1. First field : This field will be 
-
-
-
-
-
-#Github command to install
-apt-get install git
-git clone https://github.com/VincEngineer/IT_Assistant.git
-cd IT_Assistant && chmod +x install.sh
-./install.sh
-
-
-#Desktop Entry
-[Desktop Entry]
-Type=Application
-Exec=/usr/bin/python3 /home/kali/Documents/IT_Assistant/Main.py
-Name=IT_Assistant
-Icon=/home/kali/Document/IT_Assistant/Kali_Linux_Red.ico
-Comment=Open IT Assistant
-
-
-#Permissions
-chmod +x IT_Assistant.desktop
-
-
-#execute command with sudo + password:
-echo "kali" | sudo -S openvpn /home/kali/Downloads/lab_Jonias.ovpn
