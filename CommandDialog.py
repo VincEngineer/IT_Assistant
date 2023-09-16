@@ -1,6 +1,5 @@
-import subprocess
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout, QFileDialog, QLineEdit, QDialog, QLabel
-from PyQt6.QtCore import pyqtSlot, QStandardPaths
+from PyQt6.QtCore import pyqtSlot
 import configparser
 import os  # Import for getting the file extension
 
@@ -41,7 +40,8 @@ class CommandInputDialog(QDialog):
 
     def populate_existing_command(self):
         config = configparser.ConfigParser()
-        config.read("config.ini")
+        config_file_path = self.get_main_folder_path()
+        config.read(config_file_path)
         if "File_Paths" in config.sections():
             if self.button_identifier in config["File_Paths"]:
                 existing_command = config["File_Paths"][self.button_identifier]
@@ -65,7 +65,8 @@ class CommandInputDialog(QDialog):
     Example: If you select a .py file, this will suggest a python3 command like 'python3 /path/to/file/script.py'
     '''
 
-    def suggest_command_based_on_file(self, file_path):
+    @staticmethod
+    def suggest_command_based_on_file(file_path):
         file_extension = os.path.splitext(file_path)[1]
         if file_extension == '.ovpn':
             return f"openvpn {file_path}"
@@ -85,7 +86,8 @@ class CommandInputDialog(QDialog):
     @staticmethod
     def read_command_from_config(button_identifier):
         config = configparser.ConfigParser()
-        config.read("config.ini")
+        config_file_path = CommandInputDialog.get_main_folder_path()
+        config.read(config_file_path)
         if "File_Paths" in config.sections():
             if button_identifier in config["File_Paths"]:
                 return config["File_Paths"][button_identifier]
@@ -102,23 +104,24 @@ class CommandInputDialog(QDialog):
         if command_or_path:
             self.save_to_config_ini(command_or_path)
 
+    '''Get current path of the app folder'''
     @staticmethod
-    def get_config_file_path():
-        # Get the user's config directory
-        config_dir = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppConfigLocation)
-        # Ensure the directory exists
-        os.makedirs(config_dir, exist_ok=True)
-        # Return the full path to the config.ini file
-        return os.path.join(config_dir, "config.ini")
+    def get_main_folder_path():
+        # Get the directory where the script is being run
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        # Create the full path to the config.ini file
+        config_file_path = os.path.join(current_dir, "config.ini")
+        return config_file_path
 
     '''
     This method will create the config.ini file.
     '''
 
     def save_to_config_ini(self, value):
-        config_file_path = self.get_config_file_path()
+        config_file_path = self.get_main_folder_path()
+        print(f"save_to_config_ini(PATH):{config_file_path}")
         config = configparser.ConfigParser()
-        config.read("config.ini")
+        config.read(config_file_path)
         if "File_Paths" not in config.sections():
             config.add_section("File_Paths")
         config.set("File_Paths", self.button_identifier, value)

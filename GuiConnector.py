@@ -61,9 +61,6 @@ def ssh_and_terminator():
     # instances:
     terminal_automation_instance = TerminalAutomation()
     htb_status_instance = HTBMachineStatus(email_address, user_password)
-    # commands:
-    ssh_command = " "
-    xdotool_command = " "
 
     # -----------STARTING THE EXECUTION---------:
 
